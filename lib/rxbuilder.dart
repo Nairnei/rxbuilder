@@ -9,22 +9,28 @@ class RxBuilder extends StatefulWidget {
   final Widget? onSuccess;
   final Widget? onError;
   final Widget? onDone;
+  final bool? keepAlive;
 
   RxBuilder(
       {required this.stream,
       this.onLoading,
       this.onError,
       this.onSuccess,
-      this.onDone});
+      this.onDone,
+      this.keepAlive});
 
   @override
   _RxBuilderState createState() => _RxBuilderState();
 }
 
-class _RxBuilderState extends State<RxBuilder> {
+class _RxBuilderState extends State<RxBuilder>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StreamBuilder(
+      stream: widget.stream,
+      initialData: widget.stream.valueOrNull,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           switch (snapshot.connectionState) {
@@ -43,4 +49,7 @@ class _RxBuilderState extends State<RxBuilder> {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => widget.keepAlive ?? false;
 }
