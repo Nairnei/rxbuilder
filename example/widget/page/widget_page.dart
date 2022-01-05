@@ -45,11 +45,15 @@ class _HomePageState extends State<HomePage> {
                 stream: ctrlHomeLogic.subjectCounter,
                 builder: (context, snapshot) {
                   return RxBuilder(
+                    keepAlive: true,
                     state: snapshot.connectionState,
-                    onSuccess: Text(snapshot.data.toString()),
-                    onError: Text('Error'),
+                    onActive: Text("Active"),
                     onDone: Text('Done'),
-                    onLoading: Text("Load"),
+                    onWaiting: Text("Load"),
+                    onNone: Text("None"),
+                    onError: snapshot.hasError
+                        ? Text(snapshot.error.toString())
+                        : Container(),
                   );
                 }),
           ],

@@ -1,14 +1,43 @@
 # rxbuilder
 
-A new Flutter project.
+A Simple library create to manipulate state (stream/future) on Scalator Launcher
 
 ## Getting Started
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## How To Use RxDart
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### For Example: Reading the Konami Code
+
+```dart
+import 'package:rxbuilder/rxbuilder.dart';
+
+StreamBuilder<dynamic>(
+    stream: yourStream,
+    builder: (context, snapshot) {
+      return RxBuilder(
+      
+        /// Flag to keepAlive this widget
+        keepAlive: true,
+      
+        /// Current state from asynchronous computation (stream / future)
+        state: snapshot.connectionState,
+        
+        /// Widget to show a active asynchronous computation.
+        onActive: Text("Active"),
+        
+        /// Widget to show a terminated asynchronous computation.
+        onDone: Text('Done'),
+        
+        /// Widget to show awaiting interaction.
+        onWaiting: Text("Load"),
+        
+        /// Widget to show any asynchronous computation.
+        onNone: Text("None"),
+        
+         /// Widget to show a error on asynchronous computation
+        onError: Text('Error'),
+        
+      
+      );
+    }),
+}
