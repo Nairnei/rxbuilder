@@ -3,22 +3,38 @@ library rxbuilder;
 import 'package:flutter/material.dart';
 
 class RxBuilder extends StatefulWidget {
-  final Widget? onNone;
-  final Widget? onWaiting;
-  final Widget? onDone;
-  final Widget? onError;
-  final Widget? onActive;
-
-  final bool? keepAlive;
+  /// Current state from asynchronous computation (stream / future)
   final ConnectionState state;
 
-  RxBuilder(
+  /// Flag to keepAlive this widget
+  final bool? keepAlive;
+
+  /// Flag to keepAlive this widget
+  final bool? showOnProgress;
+
+  /// Widget to show any asynchronous computation.
+  final Widget? onNone;
+
+  /// Widget to show awaiting interaction.
+  final Widget? onWaiting;
+
+  /// Widget to show a terminated asynchronous computation.
+  final Widget onDone;
+
+  /// Widget to show a in progress asynchronous computation.
+  final Widget? onActive;
+
+  /// Widget to show a error on asynchronous computation
+  final Widget? onError;
+
+  const RxBuilder(
       {this.onNone,
       this.onWaiting,
-      this.onDone,
+      required this.onDone,
       this.onError,
       this.onActive,
       this.keepAlive,
+      this.showOnProgress,
       required this.state});
 
   @override
@@ -30,15 +46,23 @@ class _RxBuilderState extends State<RxBuilder>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     switch (widget.state) {
       case ConnectionState.none:
         return widget.onNone ?? Container();
+
       case ConnectionState.waiting:
         return widget.onWaiting ?? Container();
+
       case ConnectionState.active:
-        return widget.onActive ?? Container();
+        if (widget.showOnProgress ?? false) {
+          return widget.onActive ?? Container();
+        } else {
+          return widget.onDone;
+        }
+
       case ConnectionState.done:
-        return widget.onDone ?? Container();
+        return widget.onDone;
     }
   }
 
