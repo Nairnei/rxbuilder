@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  rxdart: ^0.27.1
+  rxdart: any
 
 dev_dependencies:
   flutter_test:
