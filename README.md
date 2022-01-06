@@ -1,12 +1,21 @@
-# rxbuilder
+# RxBuilder
 
 A Simple library create to manipulate state (stream/future) on Scalator Launcher
 
-## Getting Started
+## What is the purpose?
 
-## How To Use RxDart
+Minimize the handling of the possible states of the connection state within the future / stream builder.
 
-### For Example: Reading the Konami Code
+## What is required?
+
+* state: your current state from async
+* onDone: your widget for the success
+
+### Other Widgets is required?
+
+No, Other widgets by default return a simple empty container
+
+## How To Use RxBuilder
 
 ```dart
 import 'package:rxbuilder/rxbuilder.dart';
@@ -41,3 +50,11 @@ StreamBuilder<dynamic>(
       );
     }),
 }
+```
+
+## Future improvements
+
+* Multi stream;
+* Set default states for onError;
+* Set default onNone;
+* Set default onWaiting.

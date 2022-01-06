@@ -9,7 +9,7 @@ class RxBuilder extends StatefulWidget {
   /// Flag to keepAlive this widget
   final bool? keepAlive;
 
-  /// Flag to keepAlive this widget
+  /// If true Show onActive, default is false, then show OnActive is replaced for onDone
   final bool? showOnProgress;
 
   /// Widget to show any asynchronous computation.
